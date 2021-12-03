@@ -31,6 +31,7 @@ const Venda = () => {
                     <Image source = {require("../assets/img/Picture_Add.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     <Image source = {require("../assets/img/Upload_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     
+                    
                 </View>
                 
                 
