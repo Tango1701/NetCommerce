@@ -1,40 +1,52 @@
-import React from 'react';
+
+// Import do react
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
+// Jamela de Vendas
+const Venda = ({ navigation }) => {
+    
+    //Inicializa e permite alterar o valor selecionado do Piker 
+    const [selectedValue, setSelectedValue] = useState();
 
-
-const Venda = () => {
     return (
         <View style={formulario.fundo}>
-            <View style={formulario.bar}>
-                <Image 
-                    source = {require("../assets/img/voltar_gray.png")} 
-                    style = {formulario.img} 
-                    resizeMode = "stretch"
-                />
-                <Text style={formulario.titulo}>Venda</Text>
-            </View>
-            
+           
             <Text style={formulario.subTitulo}>Preencha o formulário abaixo</Text>
             <View style={formulario.form}>
-                
-                <TextInput style={formulario.input} placeholder="Tipo de produto"/>
+
+                {/* DropDown para selecionbar o tipo de produto a venda */}
+                <Picker
+                    
+                    selectedValue={selectedValue}
+                    style={formulario.input}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                    <Picker.Item label="Eletronicos" value="java" />
+                    <Picker.Item label="Eletrodomesticos" value="js" />
+                    <Picker.Item label="Viatura" value="js" />
+                    <Picker.Item label="Mobiliário" value="js" />
+                    <Picker.Item label="Casa" value="js" />
+                </Picker>
+
+                {/* Inputs dos detalhes */}
                 <TextInput style={formulario.input} placeholder="Marca"/>
                 <TextInput style={formulario.input} placeholder="Modelo"/>
                 <TextInput style={formulario.input} placeholder="Tempo de uso"/>
                 <TextInput style={formulario.input} placeholder="Informe o preço da venda"/>
                 <TextInput style={formulario.descInput} placeholder="Descrição abragente do produto."/>
 
+                {/* Barra de opções de mídea  a ser carregada */}
                 <View style={formulario.imgBar}>
+                    <Text>Adicionar Mídia</Text>
                     <Image source = {require("../assets/img/Camera_dark.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     <Image source = {require("../assets/img/Add_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     <Image source = {require("../assets/img/Picture_Add.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     <Image source = {require("../assets/img/Upload_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
-                    
-                    
                 </View>
                 
-                
+                {/* Botão de continuar. Ainda sem acção */}
                 <TouchableOpacity style={formulario.button}>
                     <Text style={formulario.label}>Continuar</Text>
                 </TouchableOpacity>
@@ -145,6 +157,20 @@ const formulario = StyleSheet.create(
         barImg: {
             width: 10+'%',
             height: 50+'%',
+        },
+        ImageButton: {
+            fontSize: 20,
+            width: 20+'%',      
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 100+'%',
+            marginTop: 0+'%',
+        },
+        ImageButton_img: {
+            width: 60+'%',
+            height: 100+'%',
+            marginRight: 25+'%',
+            marginLeft: 2+'%',
         },
           
     }

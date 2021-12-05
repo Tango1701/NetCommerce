@@ -3,41 +3,51 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 
-const HomeScreen = () => {
+// Pagina inicial
+const HomeScreen = ({ navigation, props }) => {
+
+    const faz = () => {
+        props.abrePai
+    }
+
     return (
         <View style={Home.container}>
             <StatusBar></StatusBar> 
             
             <View style={MenuBar.container}>
-                <Image 
-                    source = {require("../assets/img/Home.png")} 
-                    style = {MenuBar.img} 
-                    resizeMode = "stretch"
-                />
-                <Image 
-                    source = {require("../assets/img/Money.png")} 
-                    style = {MenuBar.img} 
-                    resizeMode = "stretch"
-                />
-                <Image 
-                    source = {require("../assets/img/Search_white.png")} 
-                    style = {MenuBar.img} 
-                    resizeMode = "stretch"
-                />
-                <Image 
-                    source = {require("../assets/img/User.png")} 
-                    style = {MenuBar.img} 
-                    resizeMode = "stretch"
-                />
+                <TouchableOpacity style={Home.button}>
+                    <Image 
+                        source = {require("../assets/img/Home.png")} 
+                        style = {MenuBar.img} resizeMode = "stretch"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={Home.button} onPress={() => navigation.navigate('Venda')}>
+                    <Image 
+                        source = {require("../assets/img/Money.png")} 
+                        style = {MenuBar.img} 
+                        resizeMode = "stretch" 
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={Home.button}>
+                    <Image 
+                        source = {require("../assets/img/Search_white.png")} 
+                        style = {MenuBar.img} 
+                        resizeMode = "stretch"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={Home.button} onPress={faz}>
+                    <Image 
+                        source = {require("../assets/img/User.png")} 
+                        style = {MenuBar.img} 
+                        resizeMode = "stretch"
+                    />
+                </TouchableOpacity>
             </View>
-            
-            {/* <TouchableOpacity style={Home.button}>
-                <Text style={Home.text}>Ok</Text>
-            </TouchableOpacity> */}
         </View>
     );
 };
 
+// Estilo da Barra de Menu
 const MenuBar = StyleSheet.create(
     {
         container: {
@@ -55,19 +65,19 @@ const MenuBar = StyleSheet.create(
             position: 'absolute',
         },
         img: {
-            width: 16+'%',
-            height: 60+'%',
+            width: 70+'%',
+            height: 80+'%',
         }
     }
-    
 )
+
 
 const Home = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-    //   justifyContent: 'center',
+      justifyContent: 'center',
       width: 100+'%',
       height: 100+'%',
     },
@@ -78,11 +88,11 @@ const Home = StyleSheet.create({
     },
     button: {
         fontSize: 20,
-        backgroundColor: '#1e1e1e',
-        textAlign: 'center',
-        width: 80+'%',
-        height: 8+'%',
-        marginTop: 160+'%',
+        width: 20+'%',      
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 90+'%',
+        marginTop: 0+'%',
       }
   });
 
