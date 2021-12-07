@@ -1,7 +1,7 @@
 
 // Imports do Native
 import React, { useState } from "react";
-import { TouchableOpacity, Image, StyleSheet, View, Text} from "react-native";
+import { TouchableOpacity, Button, Image, StyleSheet, View, Text} from "react-native";
 import { Table, Row, Rows } from 'react-native-table-component';
 
 const Perfil = () => {
@@ -67,11 +67,13 @@ const Perfil = () => {
 
   return (
     <View style={[styles.container, styles.navigationContainer]}>
-        <Text style={styles.titulo}>Perfil</Text>
+        {/* <Text style={styles.titulo}>Perfil</Text> */}
         <FotoPerfil/>
         <Text style={styles.subTitulo}>Ariana José</Text>
         <ToolBox/>
         <History/>
+        
+        {/* <Button title="Terminar Sessão"></Button> */}
     </View> 
   );
 };
@@ -132,6 +134,19 @@ const styles = StyleSheet.create({
     width: 15+'%',
     height: 100+'%',
   },
+  button: 
+  {
+      fontSize: 15,
+      backgroundColor: '#1e1e1e',
+      width: 80+'%',
+      textAlign: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      height: 35,
+      borderRadius: 5,
+      bottom: 5+'%',
+      marginLeft: 10+'%',
+  },
 });
 
 
@@ -143,18 +158,19 @@ const tabela = StyleSheet.create({
         {
             fontSize: 15,
             backgroundColor: '#1e1e1e',
-            width: 100+'%',
+            width: 80+'%',
             textAlign: 'center',
             justifyContent: 'center',
             display: 'flex',
             height: 35,
             borderRadius: 5,
-            marginTop: 1+'%',
+            marginTop: 5+'%',
+            marginLeft: 10+'%',
         },
         subTitulo: 
         {
             color: 'black',
-            textAlign: 'left',
+            textAlign: 'center',
             fontSize: 15,
         }
         ,
