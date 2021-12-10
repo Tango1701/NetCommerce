@@ -24,10 +24,6 @@ export default function App() {
 
   const drawer = useRef(null);
 
-  const abre = () => {
-    drawer.current.openDrawer()
-  } 
-    
   return (
     <DrawerLayoutAndroid ref={drawer} drawerWidth={300} drawerPosition={"right"} renderNavigationView={navigationView}>
       <NavigationContainer>

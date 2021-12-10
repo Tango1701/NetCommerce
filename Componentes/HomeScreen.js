@@ -10,6 +10,7 @@ const HomeScreen = ({ navigation, props }) => {
         props.abrePai
     }
 
+    //Conteudo a ser apresentado na tela inicial
     const Conteudo = () => {
         return(
             <>
@@ -57,7 +58,7 @@ const HomeScreen = ({ navigation, props }) => {
                         resizeMode = "stretch"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={Home.button} onPress={faz}>
+                <TouchableOpacity style={Home.button}>
                     <Image 
                         source = {require("../assets/img/User.png")} 
                         style = {MenuBar.img} 
