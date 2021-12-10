@@ -6,21 +6,17 @@ import React from 'react';
 // Pagina inicial
 const HomeScreen = ({ navigation, props }) => {
 
-    const faz = () => {
-        props.abrePai
-    }
-
     //Conteudo a ser apresentado na tela inicial
     const Conteudo = () => {
         return(
             <>
-                <View style={conteudo.Banner}>
+                <TouchableOpacity style={conteudo.Banner} onPress={() => navigation.navigate('Compra')}>
                     <Image 
                         source = {require("../assets/img/Mercedes_Shoes.jpg")} 
                         style = {conteudo.img} 
                         resizeMode = "stretch"
                     />
-                </View>
+                </TouchableOpacity>
                 <View style={conteudo.Card}>
                     <Text style={Home.text}>Card Medio</Text>
                 </View>

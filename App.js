@@ -11,6 +11,7 @@ import { Formulario } from './Componentes/Formulario';
 import HomeScreen from './Componentes/HomeScreen';
 import Venda from './Componentes/Venda';
 import Perfil from "./Componentes/Perfil";
+import Compra from "./Componentes/Compra";
 
 // Cria uma nova pilha de janelas para a navegação
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Venda" component={Venda} />
+          <Stack.Screen name="Compra" component={Compra}/>
         </Stack.Navigator>
       </NavigationContainer>
     </DrawerLayoutAndroid>
