@@ -15,6 +15,7 @@ import Compra from "./Componentes/Compra";
 import Pagar from "./Componentes/Pagar";
 import Cadastrar from "./Componentes/Cadastrar";
 import Login from "./Componentes/Login"
+import Home from "./src/pages/Home";
 
 
 // Cria uma nova pilha de janelas para a navegação
@@ -35,7 +36,10 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastrar" component={Cadastrar} />
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={Home}/>
+
+          
+
           <Stack.Screen name="Venda" component={Venda} />
           <Stack.Screen name="Compra" component={Compra}/>
           <Stack.Screen name="Carrinho" component={Pagar} options={{

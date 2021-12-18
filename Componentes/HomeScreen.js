@@ -1,7 +1,8 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React from 'react';
+import Info from '../Componentes/Info';
 
 // Pagina inicial
 const HomeScreen = ({ navigation, props }) => {
@@ -9,24 +10,43 @@ const HomeScreen = ({ navigation, props }) => {
     //Conteudo a ser apresentado na tela inicial
     const Conteudo = () => {
         return(
-            <>
-                <TouchableOpacity style={conteudo.Banner} onPress={() => navigation.navigate('Compra')}>
-                    <Image 
-                        source = {require("../assets/img/Mercedes_Shoes.jpg")} 
-                        style = {conteudo.img} 
-                        resizeMode = "stretch"
-                    />
-                </TouchableOpacity>
-                <View style={conteudo.Card}>
-                    <Text style={Home.text}>Card Medio</Text>
-                </View>
-                <View style={conteudo.miniCard}>
-                    <Text style={Home.text}>Card Pequeno</Text>
-                </View>
-            </>
+
+            <View style={Home.container}>
+                <ScrollView>
+
+                    <TouchableOpacity style={conteudo.Banner} onPress={() => navigation.navigate('Compra')}>
+                        <Image 
+                            source = {require("../assets/img/Mercedes_Shoes.jpg")} 
+                            style = {conteudo.img} 
+                            resizeMode = "stretch"
+                            
+                        />
+                    </TouchableOpacity>
+
+                
+                    <Text>LANÇAMENTO</Text>
+                    <View style={conteudo.Card}>
+                        <Info img={require('../assets/img/1.png')} cost="R$140,90" onClick={()=> navigation.navigate('Compra')}>
+                            Nike Air Max Dia
+                        </Info>
+                    </View>
+
+                   
+               
+                
+                   
+               
+               
+                    <View style={conteudo.miniCard}>
+                        <Text style={Home.text}>Card Pequeno</Text>
+                    </View> 
+                </ScrollView>
+            </View>
+            
         )
     }
 
+    // menu inferior
     return (
         <View style={Home.container}>
             <StatusBar></StatusBar> 
@@ -94,7 +114,7 @@ const Home = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
+      //alignItems: 'center',
       width: 100+'%',
       height: 100+'%',
     },
@@ -149,5 +169,34 @@ const conteudo = StyleSheet.create(
           },
     }
 )
+
+const styles = StyleSheet.create({
+    container:{
+      flex:1,
+      width: '100%',
+      backgroundColor: '#FFF'
+    },
+    header:{
+      marginBottom: 8
+    },
+    image:{
+      width: '100%'
+    },
+    textContainer:{
+      flexDirection: 'row',
+      marginVertical: '5%',
+      marginHorizontal: '5%'
+    },
+    text:{
+      fontFamily: '',
+      fontSize: 26,
+      marginHorizontal: '1%'
+    },
+    line:{
+      borderBottomColor: '#d8d8d8',
+      borderBottomWidth: 2,
+    }
+
+});
 
 export default HomeScreen;
