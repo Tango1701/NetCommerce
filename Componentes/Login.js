@@ -2,49 +2,29 @@ import React from 'react'
 import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native'
 
 
-export default class Login extends React.Component {
-  render() {
-    return (<View style={styles.container}>
+const  Login = ({navigation}) => {
 
-      <Image style={{ width: 100, height: 100, margin: 30 }} source={require('../assets/aa.png')} />
+    return (
+    <View style={styles.container}>
+      {/* <Image style={{ width: 100, height: 100, margin: 30 }} source={require('../assets/aa.png')} /> */}
+      <Text style={styles.botaoText2}>NetCommerce</Text>
 
+      <TextInput style={styles.input} placeholder="Digite o seu email " />
 
-      <Text style={styles.botaoText2}>Bem-Vindo ao NetCommerce</Text>
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Digite a sua senha " />
 
-
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o seu email " />
-
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        placeholder="Digite a sua senha " />
-
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={() => { this.clicou() }}
-      >
-        <Text style={styles.botaoText}>Login</Text>
-
+      <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Home') } >
+        <Text style={styles.botaoText}>Iniciar Sessão</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.botao1}
-        onPress={() => { this.clicou() }}
-      >
-        {/* <Text style={styles.botaoText}>Fazer Cadastro</Text> */}
-
-        <Image style={{ width: 50, height: 50, margin: 0 }} source={require('../assets/aaa.png')} />
+      <TouchableOpacity style={styles.botao1} onPress={() =>  navigation.navigate('Cadastrar') }>
+        <Image style={{ width: 40, height: 40, margin: 0 }} source={require('../assets/img/add_user.png')} />
       </TouchableOpacity>
-
-
     </View>)
-  }
 
 }
+
+export default  Login
 
 const styles = StyleSheet.create({
   container: {
@@ -85,10 +65,10 @@ const styles = StyleSheet.create({
   botao1: {
     width: 80,
     height: 80,
-    borderColor:'rgb(30, 30, 30)',
-    backgroundColor: 'white',
-    marginTop: 50+"%",
-    marginLeft: 50+"%",
+    // borderColor:'rgb(30, 30, 30)',
+    backgroundColor: 'rgb(30, 30, 30)',
+    marginTop: 10+"%",
+    marginLeft: 60+"%",
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center'
@@ -104,7 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: 'rgb(30, 30, 30)',
-    
+    marginBottom: 5+'%',
 
   }
 })

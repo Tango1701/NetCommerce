@@ -1,7 +1,7 @@
 
 // Import do react
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, Image, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
 // Jamela de Vendas
@@ -14,44 +14,44 @@ const Venda = ({ navigation }) => {
         <View style={formulario.fundo}>
            
             <Text style={formulario.subTitulo}>Preencha o formulário abaixo</Text>
-            <View style={formulario.form}>
+            <ScrollView style={formulario.form}>
+                <View style={formulario.content} >
 
-                {/* DropDown para selecionbar o tipo de produto a venda */}
-                <Picker
+                    {/* DropDown para selecionbar o tipo de produto a venda */}
+                    <Picker
+                        selectedValue={selectedValue}
+                        style={formulario.input}
+                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    >
+                        <Picker.Item label="Eletronicos" value="eletronico" />
+                        <Picker.Item label="Eletrodomesticos" value="eletrodomesticos" />
+                        <Picker.Item label="Viatura" value="viatura" />
+                        <Picker.Item label="Mobiliário" value="mobiliario" />
+                        <Picker.Item label="Casa" value="casa" />
+                    </Picker>
+
+                    {/* Inputs dos detalhes */}
+                    <TextInput style={formulario.input} placeholder="Marca"/>
+                    <TextInput style={formulario.input} placeholder="Modelo"/>
+                    <TextInput style={formulario.input} placeholder="Tempo de uso"/>
+                    <TextInput style={formulario.input} placeholder="Informe o preço da venda"/>
+                    <TextInput style={formulario.descInput} placeholder="Descrição abragente do produto."/>
+
+                    {/* Barra de opções de mídea  a ser carregada */}
+                    <View style={formulario.imgBar}>
+                        <Text>Adicionar Mídia</Text>
+                        <Image source = {require("../assets/img/Camera_dark.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                        <Image source = {require("../assets/img/Add_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                        <Image source = {require("../assets/img/Picture_Add.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                        <Image source = {require("../assets/img/Upload_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                    </View>
                     
-                    selectedValue={selectedValue}
-                    style={formulario.input}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                    <Picker.Item label="Eletronicos" value="java" />
-                    <Picker.Item label="Eletrodomesticos" value="js" />
-                    <Picker.Item label="Viatura" value="js" />
-                    <Picker.Item label="Mobiliário" value="js" />
-                    <Picker.Item label="Casa" value="js" />
-                </Picker>
-
-                {/* Inputs dos detalhes */}
-                <TextInput style={formulario.input} placeholder="Marca"/>
-                <TextInput style={formulario.input} placeholder="Modelo"/>
-                <TextInput style={formulario.input} placeholder="Tempo de uso"/>
-                <TextInput style={formulario.input} placeholder="Informe o preço da venda"/>
-                <TextInput style={formulario.descInput} placeholder="Descrição abragente do produto."/>
-
-                {/* Barra de opções de mídea  a ser carregada */}
-                <View style={formulario.imgBar}>
-                    <Text>Adicionar Mídia</Text>
-                    <Image source = {require("../assets/img/Camera_dark.png")} style = {formulario.barImg} resizeMode = "stretch"/>
-                    <Image source = {require("../assets/img/Add_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
-                    <Image source = {require("../assets/img/Picture_Add.png")} style = {formulario.barImg} resizeMode = "stretch"/>
-                    <Image source = {require("../assets/img/Upload_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                    {/* Botão de continuar. Ainda sem acção */}
+                    <TouchableOpacity style={formulario.button}>
+                        <Text style={formulario.label}>Continuar</Text>
+                    </TouchableOpacity>
                 </View>
-                
-                {/* Botão de continuar. Ainda sem acção */}
-                <TouchableOpacity style={formulario.button}>
-                    <Text style={formulario.label}>Continuar</Text>
-                </TouchableOpacity>
-                
-            </View>
+            </ScrollView>
         </View>
     );
 };
@@ -61,37 +61,46 @@ const formulario = StyleSheet.create(
     {
         form: 
         {
-          height: 88+'%',
           width: 100+"%",
           backgroundColor: '#fff',
           borderTopLeftRadius: 35,
           borderTopRightRadius: 35,
           display: 'flex',
           flexDirection: 'column',
+          color: 'black',
+        },
+        content: 
+        {
+          height: 100+'%',
+          width: 100+"%",
+          backgroundColor: 'white',
+          borderTopLeftRadius: 35,
+          borderTopRightRadius: 35,
+          display: 'flex',
           alignItems: 'center',
+          flexDirection: 'column',
           paddingTop: 5+'%',
-          marginTop: 2+'%',
           color: 'black',
         },
         fundo: 
         {
-            height: 100+'%',
+            flex: 1,
             width: 100+"%",
             backgroundColor: '#1e1e1e',
-            paddingTop: 5+'%',
+            paddingTop: 3+'%',
             alignItems: 'center',
             color: 'white',
         },
         input: 
         {
-          height: 10+"%",
+          padding: 3+"%",
           width: 90+"%",
           borderColor: 'rgb(150, 150, 150)',
           borderBottomWidth: 1
         },
         descInput: 
         {
-          height: 20+"%",
+          padding: 20,
           width: 90+"%",
           marginTop: 1+"%",
           borderColor: 'rgb(150, 150, 150)',
@@ -131,8 +140,8 @@ const formulario = StyleSheet.create(
             width: 90+'%',
             justifyContent: 'center',
             display: 'flex',
-            height: 8+'%',
-            borderRadius: 20,
+            height: 10+'%',
+            borderRadius: 10,
             marginTop: 1+'%',
         },
         bar: {

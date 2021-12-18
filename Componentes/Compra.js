@@ -1,10 +1,10 @@
 
 // Import do react
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
 
-const Compra = () => {
+const Compra = ({navigation}) => {
 
     const DescricaoProduto = () => {
         return (
@@ -15,21 +15,28 @@ const Compra = () => {
                             style = {descricaoProduto.img} 
                             resizeMode = "stretch"
                         />
-                <Text style={descricaoProduto.dados}>Marca</Text>
-                <Text style={descricaoProduto.dados}>Mercedes</Text>
-                <Text style={descricaoProduto.dados}>Preço</Text>
-                <Text style={descricaoProduto.dados}>13.000 kz</Text>
-
-
+                    <View style={descricaoProduto.descricao}>
+                        <View style={descricaoProduto.item}>
+                            <Text style={descricaoProduto.dados}>Marca</Text>
+                            <Text style={descricaoProduto.detalhe}>Mercedes Shoes Cristal Design</Text>
+                        </View>
+                        <View style={descricaoProduto.item}>
+                            <Text style={descricaoProduto.dados}>Preço</Text>
+                            <Text style={descricaoProduto.detalhe}>13.000 kz</Text>
+                        </View>
+                        <View style={descricaoProduto.item}>
+                            <Text style={descricaoProduto.dados}>Disponível até</Text>
+                            <Text style={descricaoProduto.detalhe}>21/12/2021</Text>
+                        </View>
+                    </View>
+                    
                 </View>
-
-
                 
             </View>
         )
     }
 
-    const Detalhes = () => {
+    const Opcoes = () => {
         return (
             <View style={MenuBar.container}>
                 <TouchableOpacity style={MenuBar.button}>
@@ -37,7 +44,7 @@ const Compra = () => {
                         source = {require("../assets/img/like.png")} 
                         style = {MenuBar.img} resizeMode = "stretch"
                     />
-                <Text style={descricaoProduto.text}>Gosto</Text>
+                    <Text style={descricaoProduto.text}>Gosto</Text>
 
                 </TouchableOpacity>
                 <TouchableOpacity style={MenuBar.button} >
@@ -46,16 +53,16 @@ const Compra = () => {
                         style = {MenuBar.img} 
                         resizeMode = "stretch" 
                     />
-                <Text style={descricaoProduto.text}>Detalhes</Text>
+                    <Text style={descricaoProduto.text}>Detalhes</Text>
 
                 </TouchableOpacity>
-                <TouchableOpacity style={MenuBar.button}>
+                <TouchableOpacity style={MenuBar.button} onPress={() => navigation.navigate('Carrinho')}>
                     <Image 
                         source = {require("../assets/img/carrinho_black.png")} 
                         style = {MenuBar.img} 
                         resizeMode = "stretch"
                     />
-                <Text style={descricaoProduto.text}>Carrinho</Text>
+                    <Text style={descricaoProduto.text}>Carrinho</Text>
 
                 </TouchableOpacity>
                 
@@ -66,7 +73,7 @@ const Compra = () => {
     return (
         <View>
             <DescricaoProduto/>
-            <Detalhes/>
+            <Opcoes/>
         </View>
     );
 };
@@ -87,6 +94,29 @@ const descricaoProduto = StyleSheet.create(
           marginTop: 2+'%',
           color: 'black',
         },
+        descricao: 
+        {
+          height: 98+'%',
+          width: 100+"%",
+          backgroundColor: '#fff',
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
+          display: 'flex',
+          flexDirection: 'column',
+          paddingTop: 5+'%',
+          paddingLeft: 5+'%',
+          marginTop: 2+'%',
+          color: 'black',
+        },
+        item: 
+        {
+          width: 100+"%",
+          backgroundColor: '#fff',
+          display: 'flex',
+          flexDirection: 'row',
+          paddingTop: 1+'%',
+          color: 'black',
+        },
         fundo: 
         {
             height: 100+'%',
@@ -105,6 +135,13 @@ const descricaoProduto = StyleSheet.create(
             fontSize: 11,
             color: 'black',
             textAlign: 'center',
+          },
+          detalhe: {
+            fontSize: 14,
+            color: 'black',
+            textAlign: 'center',
+            paddingTop: 1+'%',
+            marginLeft: 5+'%',
           },
           dados: {
             fontSize: 18,

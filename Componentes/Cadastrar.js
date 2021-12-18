@@ -2,19 +2,21 @@ import React from 'react'
 import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native'
 
 
-export default class Cadastrar extends React.Component {
-  render() {
-    return (<View style={styles.container}>
+const Cadastrar = () => {
+    return (
+    <View style={styles.container}>
      
-      <Text style={styles.botaoText2}>Formulário de Cadastro</Text>
-
-      <Image style={{ width: 60, height: 60, margin: 10 }} source={require('../assets/qw.png')} />
-      
-      
       <TextInput
         style={styles.input}
         placeholder="Digite o seu email " />
 
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o seu email " />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o seu email " />
           
       <TextInput
         style={styles.input}
@@ -33,36 +35,23 @@ export default class Cadastrar extends React.Component {
 
       <TouchableOpacity
         style={styles.botao}
-        onPress={() => { this.clicou() }}
+        onPress={() => {  }}
       >
         <Text style={styles.botaoText}>Cadastrar</Text>
 
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.botao1}
-        onPress={() => { this.clicou() }}
-      >
-        <Text style={styles.botaoText}>Voltar</Text>
-
-      </TouchableOpacity>
-
-      
-
     
-    </View>)
+    </View>
+    )
   }
 
-}
+export default Cadastrar
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
-
-
   },
   logo: {
     width: 150,

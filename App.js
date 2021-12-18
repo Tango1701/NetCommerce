@@ -1,7 +1,7 @@
 
 // Componentes Nativos
 import React, { useRef } from "react";
-import { StyleSheet,  DrawerLayoutAndroid } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image,  DrawerLayoutAndroid } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -12,6 +12,10 @@ import HomeScreen from './Componentes/HomeScreen';
 import Venda from './Componentes/Venda';
 import Perfil from "./Componentes/Perfil";
 import Compra from "./Componentes/Compra";
+import Pagar from "./Componentes/Pagar";
+import Cadastrar from "./Componentes/Cadastrar";
+import Login from "./Componentes/Login"
+
 
 // Cria uma nova pilha de janelas para a navegação
 const Stack = createNativeStackNavigator();
@@ -29,9 +33,26 @@ export default function App() {
     <DrawerLayoutAndroid ref={drawer} drawerWidth={300} drawerPosition={"right"} renderNavigationView={navigationView}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Cadastrar" component={Cadastrar} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Venda" component={Venda} />
           <Stack.Screen name="Compra" component={Compra}/>
+          <Stack.Screen name="Carrinho" component={Pagar} options={{
+          // headerTitle: props => <LogoTitle {...props} />,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => alert('Pressiona pagar para continuar')}
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('./assets/img/carrinho_black.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+          ),
+        }} />
         </Stack.Navigator>
       </NavigationContainer>
     </DrawerLayoutAndroid>
@@ -46,10 +67,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  button: {
     fontSize: 30,
-    color: '#1e1e1e',
+    width: 40+"%",
+    backgroundColor: '#fff',
     textAlign: 'center',
-    color: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  img: {
+    height: 70+"%",
+    width: 40+"%",
   }
 });

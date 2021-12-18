@@ -67,7 +67,7 @@ const Perfil = () => {
 
   return (
     <View style={[styles.container, styles.navigationContainer]}>
-        {/* <Text style={styles.titulo}>Perfil</Text> */}
+       
         <FotoPerfil/>
         <Text style={styles.subTitulo}>Ariana José</Text>
         <ToolBox/>

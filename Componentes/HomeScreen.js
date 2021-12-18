@@ -84,8 +84,8 @@ const MenuBar = StyleSheet.create(
             position: 'absolute',
         },
         img: {
-            width: 70+'%',
-            height: 80+'%',
+            width: 60+'%',
+            height: 70+'%',
         }
     }
 )
@@ -95,7 +95,6 @@ const Home = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-    //   justifyContent: 'center',
       width: 100+'%',
       height: 100+'%',
     },
@@ -133,9 +132,6 @@ const conteudo = StyleSheet.create(
             justifyContent: 'center',
             width: 100+'%',
             height: 30+'%',
-            // borderRadius: 5,
-            // borderWidth: 1,
-            // borderColor: 'black',
           },
           miniCard: {
             backgroundColor: '#fff',
