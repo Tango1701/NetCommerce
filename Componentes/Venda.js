@@ -181,8 +181,7 @@ const formulario = StyleSheet.create(
             marginRight: 25+'%',
             marginLeft: 2+'%',
         },
-          
     }
-  )
+)
 
 export default Venda;

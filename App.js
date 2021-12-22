@@ -7,7 +7,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 // Meus Componentes
-import { Formulario } from './Componentes/Formulario';
 import HomeScreen from './Componentes/HomeScreen';
 import Venda from './Componentes/Venda';
 import Perfil from "./Componentes/Perfil";
@@ -15,7 +14,8 @@ import Compra from "./Componentes/Compra";
 import Pagar from "./Componentes/Pagar";
 import Cadastrar from "./Componentes/Cadastrar";
 import Login from "./Componentes/Login"
-import Home from "./src/pages/Home";
+import Splash from "./Componentes/Splash";
+// import Home from "./src/pages/Home";
 
 
 // Cria uma nova pilha de janelas para a navegação
@@ -34,12 +34,10 @@ export default function App() {
     <DrawerLayoutAndroid ref={drawer} drawerWidth={300} drawerPosition={"right"} renderNavigationView={navigationView}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Bem-Vindo" component={Splash} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastrar" component={Cadastrar} />
-          <Stack.Screen name="Home" component={Home}/>
-
-          
-
+          <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Venda" component={Venda} />
           <Stack.Screen name="Compra" component={Compra}/>
           <Stack.Screen name="Carrinho" component={Pagar} options={{

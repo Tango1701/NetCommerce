@@ -2,19 +2,23 @@
 // Import do react
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { SliderBox } from "react-native-image-slider-box";
 
 
 const Compra = ({navigation}) => {
+
+    const Imagens = [
+        require("../assets/img/1.png"),
+        require("../assets/img/Mercedes_Shoes.jpg"),
+        require("../assets/img/3.png"),
+    ]
 
     const DescricaoProduto = () => {
         return (
             <View style={descricaoProduto.fundo}>
                 <View style={descricaoProduto.form}>
-                        <Image 
-                            source = {require("../assets/img/Mercedes_Shoes.jpg")} 
-                            style = {descricaoProduto.img} 
-                            resizeMode = "stretch"
-                        />
+                    <SliderBox images={Imagens} style={descricaoProduto.img}/>
+
                     <View style={descricaoProduto.descricao}>
                         <View style={descricaoProduto.item}>
                             <Text style={descricaoProduto.dados}>Marca</Text>
@@ -128,7 +132,8 @@ const descricaoProduto = StyleSheet.create(
         },
         img: {
             width: 90+'%',
-            height: 60+'%',
+            height: 90+'%',
+            marginLeft: 5+'%',
             borderRadius: 10,
         },
           text: {

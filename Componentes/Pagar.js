@@ -1,13 +1,46 @@
 // Import do react
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, FlatList, View, Image, TouchableOpacity} from 'react-native';
 
 
 const Pagar = () => {
 
+
+  const [texto, setTexto] = useState([
+    {letra: "Mercedes Design", id: "1", img: require("../assets/img/Mercedes_Car.jpg")},
+    {letra: "B", id: "2", img: require("../assets/img/Mercedes_Shoes.jpg")},
+    {letra: "C", id: "3", img: require("../assets/img/Mercedes_Shoes.jpg")}
+  ])
+
+  const ListaCompras = () => {
+    return (
+        <View style={pagamento.form}>
+            <FlatList 
+              keyExtractor={(item) => item.id}
+              data={texto} 
+              renderItem={({ item }) => (
+                <View style={pagamento.item}>
+                <Image 
+                  source = {item.img} 
+                  style = {pagamento.flatImg} 
+                  resizeMode = "stretch"
+                  />
+                <Text style={pagamento.text}>{item.letra}</Text>
+
+                </View>
+              )}
+            />
+
+        </View>
+    );
+}
+
+  
     const Fundo = () => {
         return (
             <View style={pagamento.form}>
+                <ListaCompras/>
+
                 
                 <TouchableOpacity style={pagamento.button} onPress={() => navigation.navigate('Carrinho')}>
                     <Text style={pagamento.btnText}>Pagar</Text>
@@ -17,13 +50,16 @@ const Pagar = () => {
                         resizeMode = "stretch"
                     />
                 </TouchableOpacity>
+
             </View>
         );
     }
 
+    
     return (
         <View style={pagamento.fundo}>
             <Fundo/>
+            
         </View>
     );
 };
@@ -63,6 +99,22 @@ const pagamento = StyleSheet.create(
           height: 70+"%",
           marginTop: 3+'%',
         },
+        flatImg: 
+        {
+          width: 25+"%",
+          height: 100+"%",
+          marginTop: 3+'%',
+          marginRight: 5+'%',
+        },
+        item: 
+        {
+          width: 90+"%",
+          paddingTop: 10,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        },
         fundo: 
         {
             height: 100+'%',
@@ -73,11 +125,11 @@ const pagamento = StyleSheet.create(
             color: 'white',
         },
         text: {
-          fontSize: 20,
+          fontSize: 15,
           color: 'white',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          marginLeft: 25+'%',
+          textAlign: 'left',
+          fontWeight: "100",
+          // marginLeft: 25+'%',
           marginTop: 4+'%',
         },
         btnText: {

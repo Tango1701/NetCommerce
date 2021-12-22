@@ -1,41 +1,61 @@
-import React from 'react'
 import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native'
-
+import Firebase from "../firebase/Firebase"
+import React, { useState } from "react";
 
 const Cadastrar = () => {
+
+    const [email, setEmail ] = useState("");
+    const [nome, setNome ] = useState("");
+    const [senha, setSenha ] = useState("");
+   
+
+    const salvaUser = (e) => {
+        e.preventDefault();
+
+        //Pega a referência da tabela no firebase
+        const userRef = Firebase.database().ref();
+
+        // O que vai ser enviado
+        const dados = {
+            email,
+            nome,
+            senha,
+        }
+
+        // Mandar na Base de dados
+        userRef.push(dados);
+
+        console.log(dados)
+    };
+    
     return (
     <View style={styles.container}>
      
       <TextInput
         style={styles.input}
-        placeholder="Digite o seu email " />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o seu email " />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o seu email " />
+        placeholder="Digite o seu email " 
+        value={email} required 
+        onChange={ (e) => {setEmail(e.target.value)}}
+        />
           
       <TextInput
         style={styles.input}
-        placeholder="Digite o seu nome " />
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a sua Cidade " />
-
+        placeholder="Digite o seu nome " 
+        value={nome} required 
+        onChange={ (e) => {setNome(e.target.value)}}
+        />
 
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        placeholder="Digite a sua senha " />
+        placeholder="Digite a sua senha " 
+        value={senha} required 
+        onChange={ (e) => {setSenha(e.target.value)}}
+        />
 
       <TouchableOpacity
         style={styles.botao}
-        onPress={() => {  }}
+        onPress={() => { salvaUser }}
       >
         <Text style={styles.botaoText}>Cadastrar</Text>
 

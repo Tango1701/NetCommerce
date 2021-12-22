@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "745117261042",
+    "firebase_url": "https://netcommerce-ef620-default-rtdb.firebaseio.com",
+    "project_id": "netcommerce-ef620",
+    "storage_bucket": "netcommerce-ef620.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745117261042:android:fb9260b4a9e0ac6ea1446b",
+        "android_client_info": {
+          "package_name": "com.isptec.netcommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745117261042-jsms6a4h78a7mcenj0aof0snmpsaubm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI4IRUYaWLssur18oixQU22PHHEG5YFjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745117261042-jsms6a4h78a7mcenj0aof0snmpsaubm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
