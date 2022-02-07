@@ -1,21 +1,21 @@
 
 // Componentes Nativos
 import React, { useRef } from "react";
-import { StyleSheet, TouchableOpacity, Image,  DrawerLayoutAndroid } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 // Meus Componentes
-import HomeScreen from './Componentes/HomeScreen';
-import Venda from './Componentes/Venda';
-import Perfil from "./Componentes/Perfil";
-import Compra from "./Componentes/Compra";
-import Pagar from "./Componentes/Pagar";
-import Cadastrar from "./Componentes/Cadastrar";
-import Login from "./Componentes/Login"
-import Splash from "./Componentes/Splash";
-// import Home from "./src/pages/Home";
+import Home from './View/Componentes/HomeScreen';
+import Venda from './View/Componentes/Venda';
+import Compra from "./View/Componentes/Compra";
+import Pagar from "./View/Componentes/Pagar";
+import Cadastrar from "./View/Componentes/Cadastrar";
+import Login from "./View/Componentes/Login"
+import Splash from "./View/Componentes/Splash";
+import NovaTela from "./View/Componentes/NovaTela";
+import { View } from "react-native-web";
 
 
 // Cria uma nova pilha de janelas para a navegação
@@ -23,23 +23,43 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  // Estilo Gaveta
-  const navigationView = () => (
-    <Perfil/>
-  );
-
-  const drawer = useRef(null);
-
   return (
-    <DrawerLayoutAndroid ref={drawer} drawerWidth={300} drawerPosition={"right"} renderNavigationView={navigationView}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="Bem-Vindo" component={Splash} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastrar" component={Cadastrar} />
-          <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Venda" component={Venda} />
-          <Stack.Screen name="Compra" component={Compra}/>
+          <Stack.Screen name="Compra" component={Compra} options={{
+          title:  "Comprar",
+          headerRight: () => (
+          <View style = {styles.buttons}>            
+         
+             <TouchableOpacity
+              onPress={() => alert('Pressiona pagar para continuar')}
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('./View/img/like.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => alert('Pressiona pagar para continuar')}
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('./View/img/carrinho_black.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+          </View>
+          ),
+        }} />
+          <Stack.Screen name="NovaTela" component={NovaTela}/>
           <Stack.Screen name="Carrinho" component={Pagar} options={{
           // headerTitle: props => <LogoTitle {...props} />,
           headerRight: () => (
@@ -49,7 +69,7 @@ export default function App() {
             >
                <Image 
                 style={{ width: 30, height: 30, margin: 0 }} 
-                source={require('./assets/img/carrinho_black.png')} 
+                source={require('./View/img/carrinho_black.png')} 
                 resizeMode = "stretch"
                 />
             </TouchableOpacity>
@@ -57,7 +77,6 @@ export default function App() {
         }} />
         </Stack.Navigator>
       </NavigationContainer>
-    </DrawerLayoutAndroid>
   );
 }
 
@@ -68,6 +87,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e1e1e',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttons: {
+    width: 50+"%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   button: {
     fontSize: 30,
