@@ -5,11 +5,12 @@ import { StyleSheet, Text, FlatList, View, Image, TouchableOpacity} from 'react-
 
 
 const Pagar = ({navigation}) => {
-  const [texto, setTexto] = useState([
+  
+const [texto, setTexto] = useState([
     {letra: "Mercedes Shoes", id: "2", img: require("../img/Mercedes_Shoes.jpg")},
     {letra: "Mercedes Design", id: "1", img: require("../img/Mercedes_Car.jpg")},
     {letra: "nike air", id: "3", img: require("../img/1.png")},
-    {letra: "Nike Joirdn", id: "4", img: require("../img/2.png")},
+    {letra: "Nike Joirdan", id: "4", img: require("../img/2.png")},
   ])
 
   const ListaCompras = () => {

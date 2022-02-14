@@ -1,24 +1,60 @@
-import React from 'react'
+
+import React, { useState, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native'
 
 
 const  Login = ({navigation}) => {
 
+  const [credenciais, setCredenciais] = useState([])
+
+    const [email, setEmail ] = useState("");
+    const [senha, setSenha ] = useState("")
+
+
+  useEffect( () => {
+      busca()
+   }, [])
+
+   const busca = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('user')
+        jsonValue != null ? setCredenciais(JSON.parse(jsonValue)) : null;
+      } catch(e) {
+        alert("Erro ao buscar " + e)
+      }
+  }
+
+  const emailVerificado = credenciais.email
+  const senhaVerificada = credenciais.senha
+
+   
     return (
     <View style={styles.container}>
       {/* <Image style={{ width: 100, height: 100, margin: 30 }} source={require('../assets/aa.png')} /> */}
       <Text style={styles.botaoText2}>NetCommerce</Text>
 
-      <TextInput style={styles.input} placeholder="Digite o seu email " />
+      <TextInput style={styles.input} placeholder="Digite o seu email " value={email} required 
+        onChange={ (e) => {setEmail(e.target.value)}} />
 
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Digite a sua senha " />
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Digite a sua senha " 
+        value={senha} required 
+        onChange={ (e) => {setSenha(e.target.value)}}
+      />
 
-      <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Home') } >
+      <TouchableOpacity style={styles.botao} onPress={() => {
+         if(emailVerificado == email && senhaVerificada == senha){
+          navigation.navigate('Home')
+        }else{
+          alert("Email ou senha incorrecto!")
+        }
+        
+         }} >
         <Text style={styles.botaoText}>Iniciar Sessão</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.botao1} onPress={() =>  navigation.navigate('Cadastrar') }>
-        <Image style={{ width: 40, height: 40, margin: 0 }} source={require('..//img/add_user.png')} />
+      <TouchableOpacity style={styles.botao1} onPress={() =>  { navigation.navigate('Cadastrar')} }>
+        <Image style={{ width: 40, height: 40, margin: 0 }} source={require('../img/add_user.png')} />
       </TouchableOpacity>
     </View>)
 

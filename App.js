@@ -14,7 +14,7 @@ import Pagar from "./View/Componentes/Pagar";
 import Cadastrar from "./View/Componentes/Cadastrar";
 import Login from "./View/Componentes/Login"
 import Splash from "./View/Componentes/Splash";
-import NovaTela from "./View/Componentes/NovaTela";
+import Gostos from "./View/Componentes/Gostos";
 import { View } from "react-native-web";
 
 
@@ -27,39 +27,15 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home}/>
-          <Stack.Screen name="Bem-Vindo" component={Splash} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastrar" component={Cadastrar} />
+          <Stack.Screen name="Bem-Vindo" component={Splash} />
+          <Stack.Screen name="Gostos" component={Gostos}/>
           <Stack.Screen name="Venda" component={Venda} />
           <Stack.Screen name="Compra" component={Compra} options={{
           title:  "Comprar",
-          headerRight: () => (
-          <View style = {styles.buttons}>            
-         
-             <TouchableOpacity
-              onPress={() => alert('Pressiona pagar para continuar')}
-              style={styles.button}
-            >
-               <Image 
-                style={{ width: 30, height: 30, margin: 0 }} 
-                source={require('./View/img/like.png')} 
-                resizeMode = "stretch"
-                />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => alert('Pressiona pagar para continuar')}
-              style={styles.button}
-            >
-               <Image 
-                style={{ width: 30, height: 30, margin: 0 }} 
-                source={require('./View/img/carrinho_black.png')} 
-                resizeMode = "stretch"
-                />
-            </TouchableOpacity>
-          </View>
-          ),
+          
         }} />
-          <Stack.Screen name="NovaTela" component={NovaTela}/>
           <Stack.Screen name="Carrinho" component={Pagar} options={{
           // headerTitle: props => <LogoTitle {...props} />,
           headerRight: () => (

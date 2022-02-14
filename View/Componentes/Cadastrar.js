@@ -1,6 +1,8 @@
 import { Text, StyleSheet, View, TextInput, Alert, TouchableOpacity } from 'react-native'
 // import Firebase from "../firebase/Firebase"
 import React, { useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Cadastrar = () => {
 
@@ -8,6 +10,11 @@ const Cadastrar = () => {
     const [nome, setNome ] = useState("");
     const [senha, setSenha ] = useState("");
    
+     const dados = {
+            email,
+            nome,
+            senha,
+        }
 
     const salvaUser = (e) => {
         // e.preventDefault();
@@ -57,7 +64,17 @@ const Cadastrar = () => {
 
       <TouchableOpacity
         style={styles.botao}
-        onPress={() => { Alert.alert ("Usuario Cadastrado"); }}
+        onPress={
+          async () => {
+            try {
+              await AsyncStorage.setItem( "user", JSON.stringify(dados))
+              alert ("Usuario Cadastrado");
+
+            } catch (e) {
+              alert('erro')
+            }
+          }
+           }
       >
         <Text style={styles.botaoText}>Cadastrar</Text>
 

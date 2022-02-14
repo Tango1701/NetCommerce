@@ -1,7 +1,8 @@
 
 
-import PegaDados from '../Model/PegaDados'
+import {busca} from '../Model/PegaDados'
 
-export const TodosOsProdutos = () => {
-    PegaDados
+export function TodosOsProdutos () {
+    busca()
+    alert("controller")
 }

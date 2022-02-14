@@ -1,12 +1,54 @@
 
 // Import do react
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Compra = ({navigation, route}) => {
 
     const parametros = route.params
+
+
+    React.useLayoutEffect(() => {
+      navigation.setOptions({
+        headerRight: () => (
+          <View style = {styles.buttons}>            
+         
+             <TouchableOpacity
+              onPress={
+                async () => {
+                  try {
+                    await AsyncStorage.setItem( "u0001", JSON.stringify(parametros))
+                    alert('Salvo')
+                  } catch (e) {
+                    alert('erro')
+                  }
+                }
+                }
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('../img/like.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => alert('Pressiona pagar para continuar')}
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('../img/carrinho_black.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+          </View>
+          ),
+      });
+    }, [navigation]);
+
 
     const DescricaoProduto = () => {
         return (
@@ -175,4 +217,35 @@ const MenuBar = StyleSheet.create(
           }
     }
 )
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1e1e1e',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttons: {
+    width: 50+"%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  button: {
+    fontSize: 30,
+    width: 40+"%",
+    backgroundColor: '#fff',
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  img: {
+    height: 70+"%",
+    width: 40+"%",
+  }
+});
+
 export default Compra;

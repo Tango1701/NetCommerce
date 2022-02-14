@@ -1,6 +1,10 @@
 
 import { StyleSheet, View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import React, { useState, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+// import {TodosOsProdutos} from "../../Controller/Controller"
 
 
 // Pagina inicial
@@ -8,9 +12,14 @@ const HomeScreen = ({ navigation, props }) => {
 
 
     const [produtos, setProdutos] = useState([])
+    const [dados, setDados] = useState([])
+
+    // alert(dados)
 
     useEffect( () => {
        a()
+       busca()
+    //    TodosOsProdutos()
     }, [])
 
     const a = async () => {
@@ -19,6 +28,14 @@ const HomeScreen = ({ navigation, props }) => {
         setProdutos(dados)
     }
     
+    const busca = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('dados')
+          jsonValue != null ? setDados(JSON.parse(jsonValue)) : null;
+        } catch(e) {
+          alert("Erro ao buscar " + e)
+        }
+    }
 
     //Banner a ser apresentado na tela inicial
     const Banner = () => {
@@ -51,6 +68,7 @@ const HomeScreen = ({ navigation, props }) => {
                                 Tipo: item.Tipo,
                                 Video: item.Video,
                                 Descricao: item.Descricao,
+                                Id_Produto: item.Id_Produto,
                                 Imagem: "http://localhost/NetCommerce/Files/" + item.Id_Usuario + "/"+
                                 item.Id_Produto + "/" + item.Imagem,
                             })
@@ -93,7 +111,7 @@ const HomeScreen = ({ navigation, props }) => {
                         resizeMode = "stretch" 
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={Home.button}>
+                <TouchableOpacity style={Home.button} onPress={() => navigation.navigate('Gostos')}>
                     <Image 
                         source = {require("../img/Search_white.png")} 
                         style = {MenuBar.img} 
