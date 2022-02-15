@@ -12,6 +12,14 @@ const NovaTela = ({navigation, route}) => {
     const [gostos, setGostos] = useState([])
 
 
+    function converte (){
+      var result = Object.keys(gostos).map(function(key) {
+          return gostos;
+        });
+        
+      return result
+    }
+
     useEffect( () => {
         busca()
      }, [])
@@ -30,12 +38,11 @@ const NovaTela = ({navigation, route}) => {
     return (
         <View style = {style.container}>
                             
-            <Text style = {conteudo.h3}>{gostos.Id_Produto}</Text>
-
-                
+            <Text style = {conteudo.h3}>{console.log(converte())}</Text>
+               
             <FlatList
                     keyExtractor={(item) => item.Id_Produto}
-                    data={gostos} 
+                    data = {converte()} 
                     renderItem={({ item }) => (
 
                     <TouchableOpacity style={conteudo.Card} 
@@ -86,7 +93,8 @@ const NovaTela = ({navigation, route}) => {
         },
         container: 
         {
-          flex: 1,
+          height: 100 + "%",
+          width: 100 + "%",
           display: "flex",
           alignItems:'center',
         },
