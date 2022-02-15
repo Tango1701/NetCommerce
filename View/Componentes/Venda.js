@@ -18,7 +18,7 @@ const Venda = ({ navigation }) => {
     
     const SalvarDados = () => {
  
-       fetch('https://localhost/NetCommerce/Model/SalvaProduto.php', {
+       fetch('https://192.168.43.4/NetCommerce/Model/SalvaProduto.php', {
          method: 'POST',
          headers: {
            'Accept': 'application/json',
