@@ -23,7 +23,7 @@ const HomeScreen = ({ navigation, props }) => {
     }, [])
 
     const a = async () => {
-        const response = await fetch("http://localhost/NetCommerce/Model/BuscaProdutos.php")
+        const response = await fetch("http://192.168.43.4/NetCommerce/Model/BuscaProdutos.php")
         const dados = await response.json() 
         setProdutos(dados)
     }
@@ -69,13 +69,13 @@ const HomeScreen = ({ navigation, props }) => {
                                 Video: item.Video,
                                 Descricao: item.Descricao,
                                 Id_Produto: item.Id_Produto,
-                                Imagem: "http://localhost/NetCommerce/Files/" + item.Id_Usuario + "/"+
+                                Imagem: "http://192.168.43.4/NetCommerce/Files/" + item.Id_Usuario + "/"+
                                 item.Id_Produto + "/" + item.Imagem,
                             })
                         }>
 
                        <Image 
-                            source = {"http://localhost/NetCommerce/Files/" + item.Id_Usuario + "/"+
+                            source = {"http://192.168.43.4/NetCommerce/Files/" + item.Id_Usuario + "/"+
                             item.Id_Produto + "/" + item.Imagem} 
                             style = {conteudo.img} 
                             // resizeMode = "stretch"
@@ -192,7 +192,7 @@ const conteudo = StyleSheet.create(
           banner: {
             backgroundColor: '#fff',
             alignItems: 'center',
-            justifyContent: 'space-arround',
+            // justifyContent: 'space-around',
             width: 100+'%',
             display: 'flex',
             flexDirection: 'column',
@@ -222,7 +222,7 @@ const conteudo = StyleSheet.create(
           },
           h5: {
             fontSize: 17,
-            fontWeight: 100,
+            fontWeight: "100",
             textAlign: "center",
           },
     }
