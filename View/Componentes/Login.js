@@ -20,6 +20,7 @@ const  Login = ({navigation}) => {
       try {
         const jsonValue = await AsyncStorage.getItem('user')
         jsonValue != null ? setCredenciais(JSON.parse(jsonValue)) : null;
+        alert(JSON.parse(jsonValue).id)
       } catch(e) {
         alert("Erro ao buscar " + e)
       }

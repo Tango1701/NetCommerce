@@ -1,8 +1,9 @@
 
 // Import do react
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TextInput, Image, Alert, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Jamela de Vendas
 const Venda = ({ navigation }) => {
@@ -15,42 +16,50 @@ const Venda = ({ navigation }) => {
     const [tempo, setTempo] = useState('')
     const [preco, setPreco] = useState('')
     const [descricao, setDescricao] = useState('')
+
+
+    const [usuario, setUsuario] = useState('')
+
+
+    useEffect( () => {
+        busca()
+     }, [])
+  
+     const busca = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('user')
+          jsonValue != null ? setUsuario(JSON.parse(jsonValue)) : null;
+        alert(JSON.parse(jsonValue).id)
+
+        } catch(e) {
+          alert("Erro ao buscar " + e)
+        }
+    }
+  
     
     const SalvarDados = () => {
  
-       fetch('https://192.168.43.4/NetCommerce/Model/SalvaProduto.php', {
-         method: 'POST',
-         headers: {
-           'Accept': 'application/json',
-           'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({
+        var  xmlhttp =  new XMLHttpRequest();
         
-           marca: marca,
-           modelo: modelo,
-           tipo: selectedValue,
-           preco: preco,
-           descricao: descricao,
-           tempo_uso: tempo
-        
-         })
-        
-       }).then((response) => response.json())
-             .then((responseJson) => {
-        
-       // Showing response message coming from server after inserting records.
-               Alert.alert(responseJson);
-        
-             }).catch((error) => {
-               console.error(error);
-             });
-         }
+            let url = "https://localhost/NetCommerce/Model/SalvaProduto.php?"+
+            "Id_Usuario="+usuario.id +"&marca="+marca +"&modelo="+modelo +"&tipo="+selectedValue +
+            "&preco="+preco + "&descricao="+descricao +"&tempo="+tempo;
+            xmlhttp.open('GET',url,true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = () =>
+            {
+                 if(xmlhttp.readyState == 4) // Return Request
+                {  
+                   alert(xmlhttp.response)
+                }
+            }
+    }
 
       return (
         <View style={formulario.fundo}>
            
             <Text style={formulario.subTitulo}>Preencha o formulário abaixo</Text>
-            <ScrollView>
+            <ScrollView>    
                 <View style={formulario.form}>
                     <View style={formulario.content} >
 
@@ -60,11 +69,11 @@ const Venda = ({ navigation }) => {
                         style={formulario.input}
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                     >
-                        <Picker.Item label="Eletronicos" value="eletronico" />
-                        <Picker.Item label="Eletrodomesticos" value="eletrodomesticos" />
-                        <Picker.Item label="Viatura" value="viatura" />
-                        <Picker.Item label="Mobiliário" value="mobiliario" />
-                        <Picker.Item label="Casa" value="casa" />
+                        <Picker.Item label="Eletronicos" value="Eletronico" />
+                        <Picker.Item label="Eletrodomesticos" value="Eletrodomesticos" />
+                        <Picker.Item label="Viatura" value="Viatura" />
+                        <Picker.Item label="Mobiliário" value="Mobiliario" />
+                        <Picker.Item label="Casa" value="Casa" />
                     </Picker>
 
                     {/* Inputs dos detalhes */}
@@ -100,7 +109,7 @@ const Venda = ({ navigation }) => {
                     </View>
                     
                     {/* Botão de continuar. Ainda sem acção */}
-                    <TouchableOpacity style={formulario.button} onPress = { () => SalvarDados()} >
+                    <TouchableOpacity style={formulario.button} onPress = {SalvarDados} >
                         <Text style={formulario.label}>Continuar</Text>
                     </TouchableOpacity>
                     
@@ -194,7 +203,7 @@ const formulario = StyleSheet.create(
         },
         button: {
             fontSize: 20,
-            backgroundColor: '#1e1e1e',
+            backgroundColor: 'rgb(0, 138, 230)',
             width: 90+'%',
             justifyContent: 'center',
             display: 'flex',

@@ -1,5 +1,4 @@
 import { Text, StyleSheet, View, TextInput, Alert, TouchableOpacity } from 'react-native'
-// import Firebase from "../firebase/Firebase"
 import React, { useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,33 +8,37 @@ const Cadastrar = () => {
     const [email, setEmail ] = useState("");
     const [nome, setNome ] = useState("");
     const [senha, setSenha ] = useState("");
-   
-     const dados = {
-            email,
-            nome,
-            senha,
-        }
+    // const [id, setId ] = useState("");
 
-    const salvaUser = (e) => {
-        // e.preventDefault();
 
-        //Pega a referência da tabela no firebase
-        // const userRef = Firebase.database().ref();
+        const SalvarUser = () => {
+ 
+          var  xmlhttp =  new XMLHttpRequest();
+          
+              let url = "https://localhost/NetCommerce/Model/SalvaUser.php?"+
+              "email="+email +"&nome="+nome +"&senha="+senha ;
+              xmlhttp.open('GET', url, true);
+              xmlhttp.send();
+              xmlhttp.onreadystatechange = () =>
+              {
+                   if(xmlhttp.readyState == 4) // Return Request
+                  {  
+                     alert(xmlhttp.response)
+                     var id = xmlhttp.response
 
-        // O que vai ser enviado
-        // const dados = {
-        //     email,
-        //     nome,
-        //     senha,
-        // }
+                     const dados = {
+                      email,
+                      nome,
+                      senha,
+                      id
+                    }
 
-        // Mandar na Base de dados
-        // userRef.push(dados);
-
-        // console.log(dados)
-
-        Alert.alert ("Usuario Cadastrado");
-    };
+                     AsyncStorage.clear()
+                     AsyncStorage.setItem("user", JSON.stringify(dados))
+                     alert(id)
+                  }
+              }
+      }
     
     return (
     <View style={styles.container}>
@@ -60,24 +63,10 @@ const Cadastrar = () => {
         placeholder="Digite a sua senha " 
         value={senha} required 
         onChange={ (e) => {setSenha(e.target.value)}}
-        />
+      />
 
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={
-          async () => {
-            try {
-              await AsyncStorage.setItem( "user", JSON.stringify(dados))
-              alert ("Usuario Cadastrado");
-
-            } catch (e) {
-              alert('erro')
-            }
-          }
-           }
-      >
+      <TouchableOpacity style={styles.botao} onPress={SalvarUser} >
         <Text style={styles.botaoText}>Cadastrar</Text>
-
       </TouchableOpacity>
     
     </View>

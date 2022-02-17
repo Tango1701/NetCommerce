@@ -37,21 +37,6 @@ const HomeScreen = ({ navigation, props }) => {
         }
     }
 
-    //Banner a ser apresentado na tela inicial
-    const Banner = () => {
-        return(
-                <TouchableOpacity style={conteudo.Banner} onPress={() => navigation.navigate('Compra')}>
-                    <Image 
-                        source = {require("../img/1.png")} 
-                        style = {conteudo.img} 
-                            // resizeMode = "stretch"
-                    />
-                    <Text style = {conteudo.h2}>Nike Air - 12.500 AOA </Text>
-                   </TouchableOpacity>
-        )
-    }
-
-
     //Conteudo a ser apresentado na tela inicial
     const Conteudo = () => {
         return(
@@ -82,6 +67,7 @@ const HomeScreen = ({ navigation, props }) => {
                         />
                         <View style={conteudo.detalhes}>
                             <Text style = {conteudo.h3}>{item.Nome}</Text>
+                            <Text style = {conteudo.h5}>{item.Preco} KZ</Text>
                             <Text style = {conteudo.h5}>{item.Tipo}</Text>
                         </View>
                     </TouchableOpacity>
@@ -138,18 +124,18 @@ const MenuBar = StyleSheet.create(
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            backgroundColor: '#1e1e1e',
-            width: 70+'%',
+            backgroundColor: 'rgb(0, 138, 230)',
+            width: 100+'%',
             height: 8+'%',
             borderColor: 'black',
-            borderWidth: 1,
-            borderRadius: 20,
-            bottom: 3+'%',
+            // borderWidth: 1,
+            borderRadius: 0,
+            bottom: 0+'%',
             position: 'absolute',
         },
         img: {
-            width: 60+'%',
-            height: 70+'%',
+            width: 40+'%',
+            height: 60+'%',
         }
     }
 )
@@ -207,7 +193,7 @@ const conteudo = StyleSheet.create(
             height: 100+"%",
           },
           img: {
-            width: 80,
+            width: 90,
             height: 120,
           },
           h2: {

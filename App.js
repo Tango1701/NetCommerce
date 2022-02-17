@@ -26,10 +26,24 @@ export default function App() {
   return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home}/>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Cadastrar" component={Cadastrar} />
-          <Stack.Screen name="Bem-Vindo" component={Splash} />
+
+        <Stack.Screen name="Home" component={Home} options={{
+          headerTitle: "Todos os produtos",
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => alert('Filtro de conteudo. Em desenvolvimento')}
+              style={styles.button}
+            >
+               <Image 
+                style={{ width: 30, height: 30, margin: 0 }} 
+                source={require('./View/img/filtro_DodgerBlue.png')} 
+                resizeMode = "stretch"
+                />
+            </TouchableOpacity>
+          ),
+        }} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Cadastrar" component={Cadastrar} />
           <Stack.Screen name="Gostos" component={Gostos}/>
           <Stack.Screen name="Venda" component={Venda} />
           <Stack.Screen name="Compra" component={Compra} options={{
