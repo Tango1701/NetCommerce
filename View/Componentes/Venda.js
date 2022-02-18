@@ -1,15 +1,18 @@
 
 // Import do react
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, TextInput, Image, Alert, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, Image, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
+
 
 // Jamela de Vendas
 const Venda = ({ navigation }) => {
 
     //Inicializa e permite alterar o valor selecionado do Piker 
     const [selectedValue, setSelectedValue] = useState();
+    const [image, setImage] = useState(null);
 
     const [marca, setMarca] = useState('')
     const [modelo, setModelo] = useState('')
@@ -17,9 +20,7 @@ const Venda = ({ navigation }) => {
     const [preco, setPreco] = useState('')
     const [descricao, setDescricao] = useState('')
 
-
     const [usuario, setUsuario] = useState('')
-
 
     useEffect( () => {
         busca()
@@ -29,8 +30,7 @@ const Venda = ({ navigation }) => {
         try {
           const jsonValue = await AsyncStorage.getItem('user')
           jsonValue != null ? setUsuario(JSON.parse(jsonValue)) : null;
-        alert(JSON.parse(jsonValue).id)
-
+          alert(jsonValue)
         } catch(e) {
           alert("Erro ao buscar " + e)
         }
@@ -55,16 +55,33 @@ const Venda = ({ navigation }) => {
             }
     }
 
+
+    const pickImage = async () => {
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      console.log(result);
+  
+      if (!result.cancelled) {
+        setImage(result.uri);
+      }
+    };
+
+
+
       return (
         <View style={formulario.fundo}>
            
-            <Text style={formulario.subTitulo}>Preencha o formulário abaixo</Text>
+           
             <ScrollView>    
                 <View style={formulario.form}>
-                    <View style={formulario.content} >
-
-                    {/* DropDown para selecionbar o tipo de produto a venda */}
-                    <Picker
+                     {/* DropDown para selecionbar o tipo de produto a venda */}
+                     <Picker
                         selectedValue={selectedValue}
                         style={formulario.input}
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
@@ -77,24 +94,24 @@ const Venda = ({ navigation }) => {
                     </Picker>
 
                     {/* Inputs dos detalhes */}
-                    <TextInput style={formulario.input} placeholder="Marca"
+                    <TextInput style={formulario.input} placeholder = "Marca"
                         value={marca}
                         underlineColorAndroid='transparent'
                         onChangeText={text => setMarca(text)}
                     />
-                    <TextInput style={formulario.input} placeholder="Modelo"
+                    <TextInput style={formulario.input} placeholder = "Modelo"
                         value={modelo}
                         onChangeText={text => setModelo(text)}
                     />
-                    <TextInput style={formulario.input} placeholder="Tempo de uso"
+                    <TextInput style={formulario.input} placeholder = "Tempo de uso"
                         value={tempo}
                         onChangeText={text => setTempo(text)}
                     />
-                    <TextInput style={formulario.input} placeholder="Informe o preço da venda"
+                    <TextInput style={formulario.input} placeholder = "Informe o preço da venda"
                         value={preco}
                         onChangeText={text => setPreco(text)}
                     />
-                    <TextInput style={formulario.descInput} placeholder="Descrição abragente do produto."
+                    <TextInput style={formulario.descInput} placeholder = "Descrição abragente do produto."
                         value={descricao}
                         onChangeText={text => setDescricao(text)}
                     />
@@ -102,18 +119,20 @@ const Venda = ({ navigation }) => {
                     {/* Barra de opções de mídea  a ser carregada */}
                     <View style={formulario.imgBar}>
                         <Text>Adicionar Mídia</Text>
-                        <Image source = {require("../img/Camera_dark.png")} style = {formulario.barImg} resizeMode = "stretch"/>
+                        <TouchableOpacity style={formulario.buttonMedia} onPress = {pickImage} >
+                            <Image source = {require("../img/Camera_dark.png")} style = {formulario.ImageButton_img} resizeMode = "stretch"/>
+                        </TouchableOpacity>
                         <Image source = {require("../img/Add_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                         <Image source = {require("../img/Picture_Add.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                         <Image source = {require("../img/Upload_Video.png")} style = {formulario.barImg} resizeMode = "stretch"/>
                     </View>
                     
+                    {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
                     {/* Botão de continuar. Ainda sem acção */}
                     <TouchableOpacity style={formulario.button} onPress = {SalvarDados} >
                         <Text style={formulario.label}>Continuar</Text>
                     </TouchableOpacity>
-                    
-                </View>
                 </View>
                 
             </ScrollView>
@@ -126,34 +145,24 @@ const formulario = StyleSheet.create(
     {
         form: 
         {
+          height: 600,
           width: 350,
           backgroundColor: '#fff',
           borderTopLeftRadius: 35,
           borderTopRightRadius: 35,
-          marginTop: 35,
+          marginTop: 15,
           display: 'flex',
-          height: 500,
           flexDirection: 'column',
-          color: 'black',
-        },
-        content: 
-        {
-          height: 100+'%',
-          width: 100+"%",
-          backgroundColor: 'white',
-          borderTopLeftRadius: 35,
-          borderTopRightRadius: 35,
-          display: 'flex',
+          justifyContent: 'space-evenly',
           alignItems: 'center',
-          flexDirection: 'column',
-          paddingTop: 5+'%',
           color: 'black',
+          position: 'relative',
         },
         fundo: 
         {
             height: 100+"%",
             width: 100+"%",
-            backgroundColor: '#1e1e1e',
+            backgroundColor: '#fff',
             paddingTop: 3+'%',
             alignItems: 'center',
             color: 'white',
@@ -204,12 +213,22 @@ const formulario = StyleSheet.create(
         button: {
             fontSize: 20,
             backgroundColor: 'rgb(0, 138, 230)',
-            width: 90+'%',
+            width: 80+'%',
             justifyContent: 'center',
             display: 'flex',
-            height: 10+'%',
+            height: 7+'%',
             borderRadius: 10,
-            marginTop: 1+'%',
+            // bottom: 1+'%',
+        },
+        buttonMedia: {
+            // backgroundColor: 'rgb(0, 138, 230)',
+            width: 10+'%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
+            height: 60+'%',
+            borderRadius: 10,
+            // marginTop: 1+'%',
         },
         bar: {
             fontSize: 20,
@@ -243,10 +262,8 @@ const formulario = StyleSheet.create(
             marginTop: 0+'%',
         },
         ImageButton_img: {
-            width: 60+'%',
-            height: 100+'%',
-            marginRight: 25+'%',
-            marginLeft: 2+'%',
+            width: 90+'%',
+            height: 90+'%',
         },
     }
 )

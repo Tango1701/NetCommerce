@@ -1,14 +1,44 @@
 
 // Import do react
-import React from "react";
-import { StyleSheet, Text, View, Image, Alert, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Compra = ({navigation, route}) => {
 
     const parametros = route.params
+    const [usuario, setUsuario] = useState('')
 
+    useEffect( () => {
+      busca()
+   }, [])
+
+   const busca = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('user')
+        jsonValue != null ? setUsuario(JSON.parse(jsonValue)) : null;
+      } catch(e) {
+        alert("Erro ao buscar " + e)
+      }
+    }
+
+    const Compra = () => {
+ 
+      var  xmlhttp =  new XMLHttpRequest();
+      
+          let url = "https://localhost/NetCommerce/Model/Comprar.php?"+
+          "Id_Usuario="+usuario.id +"&Id_Produto="+parametros.Id_Produto;
+          xmlhttp.open('GET',url,true);
+          xmlhttp.send();
+          xmlhttp.onreadystatechange = () =>
+          {
+               if(xmlhttp.readyState == 4) // Return Request
+              {  
+                 alert(xmlhttp.response)
+              }
+          }
+  }
 
     React.useLayoutEffect(() => {
       navigation.setOptions({
@@ -49,12 +79,9 @@ const Compra = ({navigation, route}) => {
       });
     }, [navigation]);
 
-
     const DescricaoProduto = () => {
         return (
                 <View style={descricaoProduto.form}>
-
-
                      <Image style = {descricaoProduto.img} source = {parametros.Imagem} resizeMode = "strech"/> 
 
                     <View style={descricaoProduto.descricao}>
@@ -76,6 +103,9 @@ const Compra = ({navigation, route}) => {
                         </View>
                     </View> 
                     
+                    <TouchableOpacity style={MenuBar.button}  onPress = {Compra}>
+                        <Text style={descricaoProduto.btnText}>Pagamento Rápido</Text>
+                    </TouchableOpacity>
                 </View>
                 
         )
@@ -92,7 +122,7 @@ const descricaoProduto = StyleSheet.create(
     {
         form: 
         {
-          height: 90+'%',
+          height: 100+'%',
           width: 100+"%",
           backgroundColor: 'white',
           borderTopLeftRadius: 25,
@@ -151,8 +181,13 @@ const descricaoProduto = StyleSheet.create(
             height: 50+'%',
             borderRadius: 10,
         },
+        btnText: {
+          fontSize: 20,
+          color: 'white',
+          fontWeight: 'bold',
+        },
           text: {
-            fontSize: 17,
+            fontSize: 20,
             color: 'black',
           },
           detalhe: {
@@ -174,11 +209,10 @@ const descricaoProduto = StyleSheet.create(
               justifyContent: 'center',
               height: 90+'%',
               marginTop: 0+'%',
-            }
-            ,
+          },
         subTitulo: 
         {
-            color: 'white',
+            color: 'black',
             textAlign: 'left',
             fontSize: 17,
             marginTop: 30,
@@ -209,12 +243,15 @@ const MenuBar = StyleSheet.create(
         },
         button: {
             fontSize: 20,
-            width: 50,      
-            alignItems: 'center',
+            backgroundColor: 'rgb(0, 138, 230)',
+            width: 80+'%',
             justifyContent: 'center',
-            height: 40,
-            marginTop: 10+'%',
-          }
+            alignItems: 'center',
+            display: 'flex',
+            height: 7+'%',
+            borderRadius: 10,
+            marginTop: 1+'%',
+        },
     }
 )
 

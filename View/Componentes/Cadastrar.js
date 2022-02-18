@@ -23,19 +23,7 @@ const Cadastrar = () => {
               {
                    if(xmlhttp.readyState == 4) // Return Request
                   {  
-                     alert(xmlhttp.response)
-                     var id = xmlhttp.response
-
-                     const dados = {
-                      email,
-                      nome,
-                      senha,
-                      id
-                    }
-
-                     AsyncStorage.clear()
-                     AsyncStorage.setItem("user", JSON.stringify(dados))
-                     alert(id)
+                     alert("Cadastro efectuado com sucesso")
                   }
               }
       }

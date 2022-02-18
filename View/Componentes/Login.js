@@ -6,30 +6,38 @@ import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity } from 'reac
 
 const  Login = ({navigation}) => {
 
-  const [credenciais, setCredenciais] = useState([])
-
     const [email, setEmail ] = useState("");
     const [senha, setSenha ] = useState("")
 
+  const BuscaCredenciais = () => {
+ 
+    var  xmlhttp =  new XMLHttpRequest();
+    
+        let url = "https://localhost/NetCommerce/Model/Login.php?"+
+        "email="+email +"&senha="+senha;
+        xmlhttp.open('GET', url, true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = () =>
+        {
+             if(xmlhttp.readyState == 4) // Return Request
+            {  
+               alert(xmlhttp.response)
 
-  useEffect( () => {
-      busca()
-   }, [])
+               var id = xmlhttp.response
 
-   const busca = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('user')
-        jsonValue != null ? setCredenciais(JSON.parse(jsonValue)) : null;
-        alert(JSON.parse(jsonValue).id)
-      } catch(e) {
-        alert("Erro ao buscar " + e)
-      }
+               const dados = {
+                email,
+                senha,
+                id
+              }
+
+              AsyncStorage.clear()
+              AsyncStorage.setItem("user", JSON.stringify(dados))
+              navigation.navigate('Home')
+            }
+        }
   }
 
-  const emailVerificado = credenciais.email
-  const senhaVerificada = credenciais.senha
-
-   
     return (
     <View style={styles.container}>
       {/* <Image style={{ width: 100, height: 100, margin: 30 }} source={require('../assets/aa.png')} /> */}
@@ -39,18 +47,9 @@ const  Login = ({navigation}) => {
         onChange={ (e) => {setEmail(e.target.value)}} />
 
       <TextInput style={styles.input} secureTextEntry={true} placeholder="Digite a sua senha " 
-        value={senha} required 
-        onChange={ (e) => {setSenha(e.target.value)}}
-      />
+        value={senha} required  onChange={ (e) => {setSenha(e.target.value)}} />
 
-      <TouchableOpacity style={styles.botao} onPress={() => {
-         if(emailVerificado == email && senhaVerificada == senha){
-          navigation.navigate('Home')
-        }else{
-          alert("Email ou senha incorrecto!")
-        }
-        
-         }} >
+      <TouchableOpacity style={styles.botao} onPress={ BuscaCredenciais} >
         <Text style={styles.botaoText}>Iniciar Sessão</Text>
       </TouchableOpacity>
 
